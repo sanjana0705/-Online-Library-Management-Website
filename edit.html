@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Book</title>
+</head>
+<body>
+    <h2>Edit Book</h2>
+    <form method="POST">
+        <label>Title:</label>
+        <input type="text" name="title" value="{{ book[1] }}" required>
+        <label>Author:</label>
+        <input type="text" name="author" value="{{ book[2] }}" required>
+        <label>Status:</label>
+        <select name="status">
+            <option value="Available" {% if book[3] == 'Available' %}selected{% endif %}>Available</option>
+            <option value="Borrowed" {% if book[3] == 'Borrowed' %}selected{% endif %}>Borrowed</option>
+        </select>
+        <button type="submit">Save Changes</button>
+    </form>
+</body>
+</html>

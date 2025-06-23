@@ -1,0 +1,691 @@
+
+<!--<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library - Issue Book Request</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #000;
+            color: #fff;
+        }
+        .navbar {
+            background: #333;
+            color: white;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+        .nav-links a, .logout-btn {
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+        .search-container {
+            text-align: center;
+            margin: 20px;
+        }
+        .search-container input {
+            padding: 8px;
+            margin: 5px;
+            width: 250px;
+            border-radius: 5px;
+            border: none;
+            text-align: center;
+        }
+        .listed-books {
+            text-align: center;
+            padding: 20px;
+        }
+        .book-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .book-card {
+            background: #222;
+            padding: 10px;
+            margin: 10px;
+            width: 220px;
+            border-radius: 5px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        .book-card:hover {
+            transform: scale(1.05);
+        }
+        .book-card img {
+            width: 150%;
+            height: 150px;
+            object-fit: contain; /* Ensures the image fits without distortion */
+            border-radius: 5px;
+            
+        }
+        .request-form {
+            margin-top: 10px;
+        }
+        .request-form input {
+            padding: 5px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+        }
+        .request-btn {
+            display: block;
+            width: 100%;
+            padding: 5px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            background: #f8a007;
+            color: white;
+        }
+        .notification {
+            display: none;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: green;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .no-books {
+            display: none;
+            color: red;
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+    </style>
+    <script>
+        function requestBook(bookId) {
+            let startDate = document.getElementById("start-" + bookId).value;
+            let endDate = document.getElementById("end-" + bookId).value;
+            
+            if (startDate === "" || endDate === "") {
+                alert("Please enter both start and end dates.");
+                return;
+            }
+            
+            let notification = document.getElementById("notification");
+            notification.innerHTML = "Book request successfully submitted!";
+            notification.style.display = "block";
+            
+            setTimeout(() => {
+                notification.style.display = "none";
+            }, 3000);
+        }
+
+        function filterBooks() {
+            let bookInput = document.getElementById("searchBook").value.toLowerCase();
+            let authorInput = document.getElementById("searchAuthor").value.toLowerCase();
+            let books = document.querySelectorAll(".book-card");
+            let noBooksMsg = document.getElementById("no-books-found");
+            let found = false;
+
+            books.forEach(book => {
+                let bookTitle = book.getAttribute("data-title").toLowerCase();
+                let authorName = book.getAttribute("data-author").toLowerCase();
+
+                if (bookTitle.includes(bookInput) && authorName.includes(authorInput)) {
+                    book.style.display = "block";
+                    found = true;
+                } else {
+                    book.style.display = "none";
+                }
+            });
+
+            noBooksMsg.style.display = found ? "none" : "block";
+        }
+    </script>
+</head>
+<body>
+    <div class="notification" id="notification"></div>
+    <nav class="navbar">
+        <div class="logo">📚 Online Library</div>
+        <ul class="nav-links">
+            <li><a href="#">Profile</a></li>
+            <li><button class="logout-btn" onclick="window.location.href='/'">Logout</button></li>
+        </ul>
+    </nav>
+
+    <div class="search-container">
+        <input type="text" id="searchBook" placeholder="Search by Book Name" onkeyup="filterBooks()">
+        <input type="text" id="searchAuthor" placeholder="Search by Author Name" onkeyup="filterBooks()">
+    </div>
+
+    <section class="listed-books">
+        <div class="book-container">
+            <div class="book-card" data-title="PHP and MySQL" data-author="Anup Kumar">
+                <img src="1.jpg" alt="PHP and MySQL">
+                <h3>PHP and MySQL</h3>
+                <p><strong>Author:</strong> Anup Kumar</p>
+                <div class="request-form">
+                    <input type="date" id="start-1">
+                    <input type="date" id="end-1">
+                    <button class="request-btn" onclick="requestBook(1)">Request Book</button>
+                </div>
+            </div>
+            <div class="book-card" data-title="c++">
+                <img src="2.jpg" alt="c++">
+                <h3>c++ the complete refrence ,4th edition</h3>
+                <p><strong>Author:</strong> Herbert schildt</p>
+                <div class="request-form">
+                    <input type="date" id="start-2">
+                    <input type="date" id="end-2">
+                    <button class="request-btn" onclick="requestBook(2)">Request Book</button>
+                </div>
+            </div>
+            <div class="book-card" data-title="WordPress for beginners:2022">
+                <img src="3.jpg" alt="WordPress for beginners:2022">
+                <h3>WordPress for beginners:2022</h3>
+                <p><strong>Author:</strong> Dr Andy Williams</p>
+                <div class="request-form">
+                    <input type="date" id="start-3">
+                    <input type="date" id="end-3">
+                    <button class="request-btn" onclick="requestBook(3)">Request Book</button>
+                </div>
+            </div>
+            <div class="book-card" data-title="Murach's MySQL">
+                <img src="4.jpg" alt="Murach's MySQL">
+                <h3>Murach's MySQL</h3>
+                <p><strong>Author:</strong>Anuj Kumar</p>
+
+                <div class="request-form">
+                    <input type="date" id="start-3">
+                    <input type="date" id="end-3">
+                    <button class="request-btn" onclick="requestBook(3)">Request Book</button>
+                </div>
+            </div>
+            <div class="book-card" data-title="Rich Dad Poor Dad">
+                <img src="5.jpg" alt="Rich Dad Poor Dad">
+                <h3>Rich Dad Poor Dad</h3>
+                <p><strong>Author:</strong> Robert Kiyosak</p>
+
+                <div class="request-form">
+                    <input type="date" id="start-3">
+                    <input type="date" id="end-3">
+                    <button class="request-btn" onclick="requestBook(3)">Request Book</button>
+                </div>
+            </div>
+
+            <div class="book-card" data-title="Wordpress Mastery Guide">
+                <img src="6.jpg" alt="Wordpress Mastery Guide">
+                <h3>Wordpress Mastery Guide</h3>
+                <p><strong>Author:</strong>Kyle Hill</p>
+                <div class="request-form">
+                    <input type="date" id="start-3">
+                    <input type="date" id="end-3">
+                    <button class="request-btn" onclick="requestBook(3)">Request Book</button>
+                </div>
+            </div>
+
+            <div class="book-card" data-title="ASP.NET Core 5 for beginners">
+                <img src="7.jpg" alt="ASP.NET Core 5 for beginners">
+                <h3>ASP.NET Core 5 for beginners</h3>
+                <p><strong>Author:</strong>Kyle Hill</p>
+                <div class="request-form">
+                    <input type="date" id="start-3">
+                    <input type="date" id="end-3">
+                    <button class="request-btn" onclick="requestBook(3)">Request Book</button>
+                </div>
+            </div>
+
+            <div class="book-card" data-title="Python Packages">
+                <img src="8.jpg" alt="Python Packages">
+                <h3>Python Packages</h3>
+                <p><strong>Author:</strong>Tiffany Timbers</p>
+                <div class="request-form">
+                    <input type="date" id="start-3">
+                    <input type="date" id="end-3">
+                    <button class="request-btn" onclick="requestBook(3)">Request Book</button>
+                </div>
+            </div>
+
+            <!--<div class="book-card" data-title="Mastering MySQL">
+                <img src="9.jpg" alt="Mastering MySQL">
+                <h3>Mastering MySQL</h3>
+                <p><strong>Author:</strong> Anup Kumar</p>
+                <div class="request-form">
+                    <input type="date" id="start-3">
+                    <input type="date" id="end-3">
+                    <button class="request-btn" onclick="requestBook(3)">Request Book</button>
+                </div>
+            </div>--
+            <div class="book-card" data-title="Physics Redefined">
+                <img src="10.jpg" alt="Physics Redefined">
+                <h3>Physics Redefined</h3>
+                <p><strong>Author:</strong>HC Verma</p>
+                <div class="request-form">
+                    <input type="date" id="start-3">
+                    <input type="date" id="end-3">
+                    <button class="request-btn" onclick="requestBook(3)">Request Book</button>
+                </div>
+            </div>
+            <div class="book-card" data-title="python all-in-one for dummies">
+                <img src="11.jpg" alt="python all-in-one for dummies">
+                <h3>python all-in-one for dummies</h3>
+                <p><strong>Author:</strong>john Shovic</p>
+                <div class="request-form">
+                    <input type="date" id="start-3">
+                    <input type="date" id="end-3">
+                    <button class="request-btn" onclick="requestBook(3)">Request Book</button>
+                </div>
+            </div>
+            <div class="book-card" data-title="The Girl Who Drank the Moon">
+                <img src="12.jpg" alt="The Girl Who Drank the Moon">
+                <h3>The Girl Who Drank the Moon</h3>
+                <p><strong>Author:</strong>Kelly Barnhill</p>
+                <div class="request-form">
+                    <input type="date" id="start-3">
+                    <input type="date" id="end-3">
+                    <button class="request-btn" onclick="requestBook(3)">Request Book</button>
+                </div>
+            </div>
+
+   
+        </div>
+        <p class="no-books" id="no-books-found">No books found!</p>
+    </section>
+</body>
+</html>-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library - Issue Book Request</title>
+    <style>
+        /* Basic Styling */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #000;
+            color: #fff;
+        }
+
+        /* Navbar */
+        .navbar {
+            background: #333;
+            color: white;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+
+        /* Menu Icon (☰) */
+        .menu-icon {
+            font-size: 28px;
+            cursor: pointer;
+            user-select: none;
+            padding: 5px 10px;
+            border: 1px solid white;
+            border-radius: 5px;
+        }
+
+        /* Dropdown Menu */
+        .menu {
+            display: none; /* Hidden by default */
+            position: absolute;
+            top: 60px;
+            left: 20px;
+            background: #444;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            padding: 10px 0;
+            z-index: 1000;
+        }
+
+        .menu a {
+            display: block;
+            padding: 10px 20px;
+            color: white;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+
+        .menu a:hover {
+            background: #555;
+        }
+
+        .show-menu {
+            display: block; /* Show when active */
+        }
+
+        /* Search Section */
+        .search-container {
+            text-align: center;
+            margin: 20px;
+        }
+
+        .search-container input {
+            padding: 8px;
+            margin: 5px;
+            width: 250px;
+            border-radius: 5px;
+            border: none;
+            text-align: center;
+        }
+
+        /* Book Section */
+        .listed-books {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .book-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .book-card {
+            background: #222;
+            padding: 10px;
+            margin: 10px;
+            width: 220px;
+            border-radius: 5px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .book-card:hover {
+            transform: scale(1.05);
+        }
+
+        .book-card img {
+            width: 150%;
+            height: 150px;
+            object-fit: contain;
+            border-radius: 5px;
+        }
+
+        .request-form input {
+            padding: 5px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+        }
+
+        .request-btn {
+            display: block;
+            width: 100%;
+            padding: 5px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            background: #f8a007;
+            color: white;
+        }
+
+        .no-books {
+            display: none;
+            color: red;
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar with Menu -->
+    <nav class="navbar">
+        <div class="menu-icon" onclick="toggleMenu()">☰</div>
+        <div class="logo">📚 Online Library</div>
+
+        <!-- Menu Links -->
+        <div class="menu" id="menu">
+           <!--<a href="profile.html">👤Profile</a>
+            <a href="book.html">📚Book</a>
+            <a href="dashboard.html">📊Dashboard</a>
+            <!--<a href="transaction.html">Transactions</a>--
+            <a href="issue_book.html">📖Issue Book Request</a>
+            <!--<a href="categories.html">Categories</a>--
+            <a href="index.html">🚪Logout</a>-->
+
+            <a href="{{ url_for('user_profile') }}">👤Profile</a>
+            <a href="{{ url_for('user_dashboard') }}">📊Dashboard</a>
+            <a href="{{ url_for('user_book_page') }}">📚Books</a>
+            <a href="{{ url_for('issue_book') }}">📖Issue Book</a>
+            <li id ="transaction">
+                <a href="#">Transaction</a>
+                   <div class="dropdown" id="dropdown">
+                       <a href="{{ url_for('borrow_page') }}">borrow</a>
+                       <!--<a href="view_book.html">📚View Book</a>-->
+                   </div></li>
+            <a href="{{ url_for('logout') }}">🚪Logout</a>
+    
+        </div>
+    </nav>
+
+    <!-- Search Section -->
+    <div class="search-container">
+        <input type="text" id="searchBook" placeholder="Search by Book Name" onkeyup="filterBooks()">
+        <input type="text" id="searchAuthor" placeholder="Search by Author Name" onkeyup="filterBooks()">
+    </div>
+
+    <!-- Book Section -->
+    <section class="listed-books">
+        <div class="book-container">
+            <div class="book-card" data-title="PHP and MySQL" data-author="Anup Kumar">
+                <!--<img src="1.jpg" alt="PHP and MySQL">-->
+                <img src="{{ url_for('static', filename='images/book1.jpg') }}" alt="PHP and MySQL" width="150">
+                <h3>PHP and MySQL</h3>
+                <p><strong>Author:</strong> Anup Kumar</p>
+                <div class="request-form">
+                    <input type="date" id="start-1">
+                    <input type="date" id="end-1">
+                    <button class="request-btn" onclick="requestBook(1)">Request Book</button>
+                </div>
+            </div>
+            <div class="book-card" data-title="c++">
+                <!--<img src="2.jpg" alt="c++">-->
+                <img src="{{ url_for('static', filename='images/book2.jpg') }}" alt="c++" width="150">
+                <h3>c++ the complete refrence ,4th edition</h3>
+                <p><strong>Author:</strong> Herbert schildt</p>
+                <div class="request-form">
+                    <input type="date" id="start-2">
+                    <input type="date" id="end-2">
+                    <button class="request-btn" onclick="requestBook(2)">Request Book</button>
+                </div>
+            </div>
+            <div class="book-card" data-title="WordPress for beginners:2022">
+                <!--<img src="3.jpg" alt="WordPress for beginners:2022">-->
+                <img src="{{ url_for('static', filename='images/book3.jpg') }}" alt="WordPress for beginners:2022" width="150">
+                <h3>WordPress for beginners:2022</h3>
+                <p><strong>Author:</strong> Dr Andy Williams</p>
+                <div class="request-form">
+                    <input type="date" id="start-3">
+                    <input type="date" id="end-3">
+                    <button class="request-btn" onclick="requestBook(3)">Request Book</button>
+                </div>
+            </div>
+            <div class="book-card" data-title="Murach's MySQL">
+                <!--<img src="4.jpg" alt="Murach's MySQL">-->
+                <img src="{{ url_for('static', filename='images/book4.jpg') }}" alt="Murach's MySQL" width="150">
+                <h3>Murach's MySQL</h3>
+                <p><strong>Author:</strong>Anuj Kumar</p>
+
+                <div class="request-form">
+                    <input type="date" id="start-3">
+                    <input type="date" id="end-3">
+                    <button class="request-btn" onclick="requestBook(3)">Request Book</button>
+                </div>
+            </div>
+            <div class="book-card" data-title="Rich Dad Poor Dad">
+                <!--<img src="5.jpg" alt="Rich Dad Poor Dad">-->
+                <img src="{{ url_for('static', filename='images/book5.jpg') }}" alt="Rich Dad Poor Dad" width="150">
+                <h3>Rich Dad Poor Dad</h3>
+                <p><strong>Author:</strong> Robert Kiyosak</p>
+
+                <div class="request-form">
+                    <input type="date" id="start-3">
+                    <input type="date" id="end-3">
+                    <button class="request-btn" onclick="requestBook(3)">Request Book</button>
+                </div>
+            </div>
+
+            <div class="book-card" data-title="Wordpress Mastery Guide">
+               <!--<img src="6.jpg" alt="Wordpress Mastery Guide">-->
+               <img src="{{ url_for('static', filename='images/book1.jpg') }}" alt="Wordpress Mastery Guide" width="150">
+                <h3>Wordpress Mastery Guide</h3>
+                <p><strong>Author:</strong>Kyle Hill</p>
+                <div class="request-form">
+                    <input type="date" id="start-3">
+                    <input type="date" id="end-3">
+                    <button class="request-btn" onclick="requestBook(3)">Request Book</button>
+                </div>
+            </div>
+
+            <div class="book-card" data-title="ASP.NET Core 5 for beginners">
+                <!--<img src="7.jpg" alt="ASP.NET Core 5 for beginners">-->
+                <img src="{{ url_for('static', filename='images/book7.jpg') }}" alt="ASP.NET Core 5 for beginners" width="150">
+                <h3>ASP.NET Core 5 for beginners</h3>
+                <p><strong>Author:</strong>Kyle Hill</p>
+                <div class="request-form">
+                    <input type="date" id="start-3">
+                    <input type="date" id="end-3">
+                    <button class="request-btn" onclick="requestBook(3)">Request Book</button>
+                </div>
+            </div>
+
+            <div class="book-card" data-title="Python Packages">
+               <!--<img src="8.jpg" alt="Python Packages">-->
+
+               <img src="{{ url_for('static', filename='images/book8.jpg') }}" alt="Python Packages" width="150">
+                <h3>Python Packages</h3>
+                <p><strong>Author:</strong>Tiffany Timbers</p>
+                <div class="request-form">
+                    <input type="date" id="start-3">
+                    <input type="date" id="end-3">
+                    <button class="request-btn" onclick="requestBook(3)">Request Book</button>
+                </div>
+            </div>
+
+            <!--<div class="book-card" data-title="Mastering MySQL">
+                <!--<img src="9.jpg" alt="Mastering MySQL">--
+                <img src="{{ url_for('static', filename='images/book10.jpg') }}" alt="Physics Redefined" width="150">  
+                <h3>Mastering MySQL</h3>
+                <p><strong>Author:</strong> Anup Kumar</p>
+                <div class="request-form">
+                    <input type="date" id="start-3">
+                    <input type="date" id="end-3">
+                    <button class="request-btn" onclick="requestBook(3)">Request Book</button>
+                </div>
+            </div>-->
+            <div class="book-card" data-title="Physics Redefined">
+                <!--<img src="10.jpg" alt="Physics Redefined">-->
+                <img src="{{ url_for('static', filename='images/book10.jpg') }}" alt="Physics Redefined" width="150">  
+                <h3>Physics Redefined</h3>
+                <p><strong>Author:</strong>HC Verma</p>
+                <div class="request-form">
+                    <input type="date" id="start-3">
+                    <input type="date" id="end-3">
+                    <button class="request-btn" onclick="requestBook(3)">Request Book</button>
+                </div>
+            </div>
+            <div class="book-card" data-title="python all-in-one for dummies">
+               <!-- <img src="11.jpg" alt="python all-in-one for dummies">-->
+               <img src="{{ url_for('static', filename='images/book11.jpg') }}" alt="python all-in-one for dummies" width="150">
+                <h3>python all-in-one for dummies</h3>
+                <p><strong>Author:</strong>john Shovic</p>
+                <div class="request-form">
+                    <input type="date" id="start-3">
+                    <input type="date" id="end-3">
+                    <button class="request-btn" onclick="requestBook(3)">Request Book</button>
+                </div>
+            </div>
+            <div class="book-card" data-title="The Girl Who Drank the Moon">
+                <!--<img src="12.jpg" alt="The Girl Who Drank the Moon">-->
+                <img src="{{ url_for('static', filename='images/book12.jpg') }}" alt="The Girl Who Drank the Moon" width="150">
+                <h3>The Girl Who Drank the Moon</h3>
+                <p><strong>Author:</strong>Kelly Barnhill</p>
+                <div class="request-form">
+                    <input type="date" id="start-3">
+                    <input type="date" id="end-3">
+                    <button class="request-btn" onclick="requestBook(3)">Request Book</button>
+                </div>
+            </div>
+
+   
+        </div>
+
+
+            <!-- Add other book cards here -->
+        </div>
+        <p class="no-books" id="no-books-found">No books found!</p>
+    </section>
+
+    <script>
+        // ✅ Toggle Menu (Show/Hide)
+        function toggleMenu() {
+            const menu = document.getElementById("menu");
+            menu.classList.toggle("show-menu");
+        }
+
+        // ✅ Close Menu on Outside Click
+        window.addEventListener("click", function (event) {
+            const menu = document.getElementById("menu");
+            const menuIcon = document.querySelector(".menu-icon");
+            if (!menu.contains(event.target) && !menuIcon.contains(event.target)) {
+                menu.classList.remove("show-menu");
+            }
+        });
+
+        // ✅ Book Request Function
+        function requestBook(bookId) {
+            let startDate = document.getElementById("start-" + bookId).value;
+            let endDate = document.getElementById("end-" + bookId).value;
+            if (startDate === "" || endDate === "") {
+                alert("Please enter both start and end dates.");
+                return;
+            }
+            alert("Book request submitted successfully!");
+        }
+
+        // ✅ Filter Books
+        function filterBooks() {
+            let bookInput = document.getElementById("searchBook").value.toLowerCase();
+            let authorInput = document.getElementById("searchAuthor").value.toLowerCase();
+            let books = document.querySelectorAll(".book-card");
+            let noBooksMsg = document.getElementById("no-books-found");
+            let found = false;
+
+            books.forEach(book => {
+                let bookTitle = book.getAttribute("data-title").toLowerCase();
+                let authorName = book.getAttribute("data-author")?.toLowerCase() || "";
+
+                if (bookTitle.includes(bookInput) && authorName.includes(authorInput)) {
+                    book.style.display = "block";
+                    found = true;
+                } else {
+                    book.style.display = "none";
+                }
+            });
+
+            noBooksMsg.style.display = found ? "none" : "block";
+        }
+    </script>
+</body>
+
+</html>
+

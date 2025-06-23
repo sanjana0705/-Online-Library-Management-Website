@@ -1,0 +1,503 @@
+
+<!--<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #000;
+            color: #fff;
+        }
+
+        /* ✅ Top Navbar */
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #111;
+            padding: 15px 20px;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            color: white;
+        }
+
+        .menu-icon {
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        /* ✅ Sidebar */
+        .sidebar {
+            width: 250px;
+            height: 100vh;
+            background: #111;
+            position: fixed;
+            padding-top: 60px;
+            left: 0;
+            transition: 0.3s;
+        }
+
+        .sidebar a {
+            display: block;
+            color: white;
+            padding: 15px;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .sidebar a:hover {
+            background: #444;
+        }
+
+        .close-btn {
+            display: none; /* Hide the close button */
+        }
+
+        /* ✅ Main Content */
+        .main-content {
+            margin-left: 270px;
+            padding: 80px 20px; /* Adjust for fixed navbar */
+        }
+
+        /* ✅ Dashboard Cards */
+        .dashboard-cards {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .card {
+            background: #222;
+            padding: 20px;
+            width: 250px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .card h3 {
+            margin: 0;
+            font-size: 18px;
+        }
+
+        .card p {
+            font-size: 24px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+
+    <!-- ✅ Navbar --
+    <div class="navbar">
+        <h1>Online Library Management System</h1>
+        <span class="menu-icon" onclick="openSidebar()">☰</span>
+    </div>
+
+    <!-- ✅ Sidebar --
+    <div id="sidebar" class="sidebar">
+        <a href="dashboard.html">📊 Dashboard</a>
+        <a href="book.html">📚 Books</a>
+        <a href="issue_book.html">📖 Issue/Return</a>
+        <a href="account.html">👤 Account</a>
+        <a href="#" onclick="logout()">🚪 Logout</a>
+    </div>
+
+    <!-- ✅ Main Content --
+    <div class="main-content">
+        <h1>User Dashboard</h1>
+        <div class="dashboard-cards">
+            <div class="card" style="background: #444;">
+                <h3>Books Not Returned Yet</h3>
+                <p>0</p>
+            </div>
+            <div class="card" style="background: #666;">
+                <h3>Available Books</h3>
+                <p>0</p>
+            </div>
+            <div class="card" style="background: #888;">
+                <h3>Issue Book Requests</h3>
+                <p>0</p>
+            </div>
+            <div class="card" style="background: #aaa;">
+                <h3>Fine/Penalty</h3>
+                <p>0</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openSidebar() {
+            document.getElementById("sidebar").style.width = "250px";
+        }
+
+        function logout() {
+            alert("Logging out...");
+            window.location.href = "index.html"; // Redirect to login page
+        }
+    </script>
+
+</body>
+</html>-->
+
+<!--<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #000;
+            color: #fff;
+        }
+
+        /* ✅ Navbar (Fixed at the top) */
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #111;
+            padding: 15px 20px;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            color: white;
+        }
+
+        /* ✅ Menu Button (☰) */
+        .menu-icon {
+            font-size: 24px;
+            cursor: pointer;
+            user-select: none;
+            display: block;
+        }
+
+        /* ✅ Sidebar (Initially Hidden) */
+        .sidebar {
+            width: 250px;
+            height: 100vh;
+            background: #111;
+            position: fixed;
+            top: 0;
+            left: -250px; /* Sidebar starts hidden */
+            transition: left 0.3s;
+            z-index: 1001;
+            padding-top: 60px;
+        }
+
+        .sidebar a {
+            display: block;
+            color: white;
+            padding: 15px;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .sidebar a:hover {
+            background: #444;
+        }
+
+        /* ✅ Main Content (Pushed down to avoid overlapping with navbar) */
+        .main-content {
+            padding: 80px 20px; /* Adjusted for fixed navbar */
+        }
+
+        /* ✅ Dashboard Cards */
+        .dashboard-cards {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .card {
+            background: #222;
+            padding: 20px;
+            width: 250px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .card h3 {
+            margin: 0;
+            font-size: 18px;
+        }
+
+        .card p {
+            font-size: 24px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ✅ Navbar --
+    <div class="navbar">
+        <h1>Online Library</h1>
+        <span class="menu-icon" onclick="toggleSidebar()">☰</span> <!-- ✅ Now Visible -->
+    </div>
+
+    <!-- ✅ Sidebar --
+        <div id="sidebar" class="sidebar">
+        <a href="dashboard.html">📊 Dashboard</a>
+        <a href="book.html">📚 Books</a>
+        <a href="issue_book.html">📖 Issue/Return</a>
+        <a href="account.html">👤 Account</a>
+        <a href="index.html" onclick="logout()">🚪 Logout</a>
+    </div>
+
+    <!-- ✅ Main Content --
+    <div class="main-content">
+        <h1>User Dashboard</h1>
+        <div class="dashboard-cards">
+            <div class="card" style="background: #444;">
+                <h3>Books Not Returned Yet</h3>
+                <p>0</p>
+            </div>
+            <div class="card" style="background: #666;">
+                <h3>Available Books</h3>
+                <p>0</p>
+            </div>
+            <div class="card" style="background: #888;">
+                <h3>Issue Book Requests</h3>
+                <p>0</p>
+            </div>
+            <div class="card" style="background: #aaa;">
+                <h3>Fine/Penalty</h3>
+                <p>0</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let sidebarOpen = false;
+
+        function toggleSidebar() {
+            let sidebar = document.getElementById("sidebar");
+            sidebarOpen = !sidebarOpen;
+            sidebar.style.left = sidebarOpen ? "0px" : "-250px";
+        }
+
+        // ✅ Close Sidebar when Clicking Outside
+        document.addEventListener("click", function (event) {
+            let sidebar = document.getElementById("sidebar");
+            let menuIcon = document.querySelector(".menu-icon");
+
+            // Check if the clicked element is NOT in the sidebar or menu button
+            if (sidebarOpen && !sidebar.contains(event.target) && !menuIcon.contains(event.target)) {
+                sidebar.style.left = "-250px";
+                sidebarOpen = false;
+            }
+        });
+
+        function logout() {
+            alert("Logging out...");
+            window.location.href = "index.html"; // Redirect to login page
+        }
+    </script>
+
+</body>
+</html>-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--<title>User Dashboard</title>-->
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #000;
+            color: #fff;
+        }
+
+        /* ✅ Navbar */
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #111;
+            padding: 0px 0px;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            color: white;
+        }
+
+        /* ✅ Menu Button (☰) */
+        .menu-icon {
+            font-size: 24px;
+            cursor: pointer;
+            user-select: none;
+            display: block;
+            padding: 5px 10px;  /* 🔹 Added padding */
+            margin-right: 15px; /* 🔹 Adjusted margin */
+            border: 1px solid transparent; /* 🔹 Remove debug border */
+            background: #222;  /* 🔹 Optional: Background for better visibility */
+            border-radius: 5px; /* 🔹 Smooth edges */
+
+
+        }
+
+        /* ✅ Sidebar */
+        .sidebar {
+            width: 250px;
+            height: 100vh;
+            background: #111;
+            position: fixed;
+            top: 0;
+            left: -250px;
+            transition: left 0.3s;
+            z-index: 1001;
+            padding-top: 60px;
+        }
+
+        .sidebar a {
+            display: block;
+            color: white;
+            padding: 15px;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .sidebar a:hover {
+            background: #444;
+        }
+
+        /* ✅ Main Content */
+        .main-content {
+            padding: 80px 20px;
+        }
+
+        /* ✅ Dashboard Cards */
+        .dashboard-cards {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .card {
+            background: #222;
+            padding: 20px;
+            width: 250px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .card h3 {
+            margin: 0;
+            font-size: 18px;
+        }
+
+        .card p {
+            font-size: 24px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ✅ Navbar -->
+    <div class="navbar">
+        <h1>Online Library</h1>
+        <span class="menu-icon" id="menuBtn">☰</span> <!-- ✅ Visible Now -->
+    </div>
+
+    <!-- ✅ Sidebar -->
+    <div id="sidebar" class="sidebar">
+        <!--<a href="profile.html">👤Profile</a>
+        <a href="book.html">📚 Books</a>
+        <a href="dashboard.html">📊 Dashboard</a>
+
+        <a href="issue_book.html">📖 Issue/Return</a>
+
+        <a href="index.html" onclick="logout()">🚪 Logout</a>-->
+
+        <a href="{{ url_for('user_profile') }}">👤Profile</a>
+        <a href="{{ url_for('user_dashboard') }}">📊Dashboard</a>
+        <a href="{{ url_for('user_book_page') }}">📚Books</a>
+        <a href="{{ url_for('issue_book') }}">📖Issue Book</a>
+        <li id ="transaction">
+            <a href="#">Transaction</a>
+               <div class="dropdown" id="dropdown">
+                   <a href="{{ url_for('borrow_page') }}">borrow</a>
+                   <!--<a href="view_book.html">📚View Book</a>-->
+               </div></li>
+        <a href="{{ url_for('logout') }}">🚪Logout</a>
+
+    </div>
+
+    <!-- ✅ Main Content -->
+    <div class="main-content">
+       <h1>User Dashboard</h1>
+        <div class="dashboard-cards">
+            <div class="card" style="background: #444;">
+                <h3>Books Not Returned Yet</h3>
+                <p>0</p>
+            </div>
+            <div class="card" style="background: #666;">
+                <h3>Available Books</h3>
+                <p>12</p>
+            </div>
+            <div class="card" style="background: #666;">
+                <h3>NO of books borrow</h3>
+                <p>0</p>
+            </div>
+            
+            <div class="card" style="background: #888;">
+                <h3>Issue Book Requests</h3>
+                <p>1</p>
+            </div>
+            <div class="card" style="background: #aaa;">
+                <h3>Fine/Penalty</h3>
+                <p>0</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let sidebarOpen = false;
+        const sidebar = document.getElementById("sidebar");
+        const menuBtn = document.getElementById("menuBtn");
+
+        menuBtn.addEventListener("click", function (event) {
+            event.stopPropagation(); // Prevent click from closing sidebar immediately
+            sidebarOpen = !sidebarOpen;
+            sidebar.style.left = sidebarOpen ? "0px" : "-250px";
+        });
+
+        // ✅ Close Sidebar when Clicking Outside
+        document.addEventListener("click", function (event) {
+            if (sidebarOpen && !sidebar.contains(event.target) && event.target !== menuBtn) {
+                sidebar.style.left = "-250px";
+                sidebarOpen = false;
+            }
+        });
+
+        function logout() {
+            alert("Logging out...");
+            window.location.href = "index.html"; // Redirect to login page
+        }
+    </script>
+
+</body>
+</html>
+
+
+
+

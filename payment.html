@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Payment Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: #333;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+            width: 50%;
+            margin: auto;
+        }
+
+        h2 {
+            color: #4CAF50;
+        }
+
+        input {
+            padding: 10px;
+            margin: 10px;
+            width: 80%;
+            border-radius: 5px;
+            border: none;
+        }
+
+        button {
+            padding: 10px 20px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #45a049;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2>Payment Details</h2>
+        <p>Complete your payment for the borrowed book.</p>
+
+        <label>Card Number:</label><br>
+        <input type="text" id="cardNumber" placeholder="Enter your card number" required><br>
+
+        <label>Amount (in ₹):</label><br>
+        <input type="text" id="amount" value="350" readonly><br>
+
+        <button onclick="submitPayment()">Pay Now</button>
+    </div>
+
+    <script>
+        function submitPayment() {
+            const cardNumber = document.getElementById('cardNumber').value;
+
+            if (!cardNumber) {
+                alert("Please enter a valid card number.");
+                return;
+            }
+
+            alert("Payment Successful! Redirecting...");
+            window.location.href = "{{ url_for('borrow_page') }}"; // Redirect back to borrow page
+        }
+    </script>
+</body>
+
+</html>

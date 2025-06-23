@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Registration - Library Management System</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+        }
+
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            width: 400px;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            background: black;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #555;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h2>Admin Registration</h2>
+        <!--<form action="http://localhost:5000/admin_register" method="POST">
+            <input type="text" name="fullname" placeholder="Full Name" required>
+            <input type="text" name="username" placeholder="Username" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <input type="email" name="email" placeholder="Email" required>
+            <button type="submit">Register</button>
+        </form>--
+        <form action="admin_register" method="POST">--
+      <form action="{{ url_for('admin_register') }}" method="POST">-->
+        <form action="/admin/register" method="POST">
+
+
+        <label>Full Name:</label>
+        <input type="text" name="fullname" required><br>
+
+        <label>Email:</label>
+        <input type="email" name="email" required><br>
+
+        <label>Username:</label>
+        <input type="text" name="username" required><br>
+
+        <label>Password:</label>
+        <input type="password" name="password" required><br>
+
+        <button type="submit">Register</button>
+    </form>
+
+    <a href="/">Back to Login</a>
+ 
+
+    </div>
+
+</body>
+
+</html>

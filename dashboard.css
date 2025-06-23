@@ -1,0 +1,267 @@
+/* General Styles */
+/*
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+}
+
+/* Header *
+header {
+    background-color: #2c3e50;
+    color: white;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    height: 40px;
+    margin-right: 10px;
+}
+
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+nav ul li {
+    margin: 0 15px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+#logoutBtn {
+    background: red;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    cursor: pointer;
+}
+
+/* Dashboard *
+.dashboard {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+.card {
+    background: white;
+    padding: 20px;
+    margin: 10px;
+    text-align: center;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    width: 200px;
+}
+
+.card i {
+    font-size: 30px;
+    color: #2c3e50;
+}
+
+.card h3 {
+    font-size: 24px;
+    margin: 10px 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+nav {
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+nav ul li {
+    margin: 0 10px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+.content {
+    padding: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+}
+
+th, td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+th {
+    background: #444;
+    color: white;
+}
+
+button {
+    padding: 5px 10px;
+    border: none;
+    color: white;
+    background-color: #28a745;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #218838;
+}
+
+.card {
+    background: white;
+    padding: 20px;
+    margin: 10px;
+    text-align: center;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    display: inline-block;
+    width: 30%;
+}
+    */
+    /* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+/* Navigation Bar */
+nav {
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+nav ul li {
+    margin: 0 10px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    padding: 8px 12px;
+}
+
+/* Active Navigation Highlight */
+nav ul li a.active {
+    background-color: #28a745;
+    border-radius: 5px;
+}
+
+/* Content Section */
+.content {
+    padding: 20px;
+}
+
+/* Home Page (Book Listing) */
+.home-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+}
+
+.home-table th, .home-table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+.home-table th {
+    background: #444;
+    color: white;
+}
+
+/* Borrow Button (Updated from Edit/Delete) */
+.borrow-btn {
+    padding: 5px 15px;
+    border: none;
+    color: white;
+    background-color: #007bff;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.borrow-btn:hover {
+    background-color: #0056b3;
+}
+
+/* Student Dashboard Cards */
+.dashboard-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.card {
+    background: white;
+    padding: 20px;
+    margin: 10px;
+    text-align: center;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    width: 30%;
+}
+
+/* Logout Button */
+.logout-btn {
+    background-color: #dc3545;
+    padding: 8px 12px;
+    border: none;
+    color: white;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.logout-btn:hover {
+    background-color: #bd2130;
+}
+
+

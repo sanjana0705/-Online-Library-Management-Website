@@ -1,0 +1,360 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Borrowed Books</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f8f8f8;;
+            margin: 20px;
+            color: #333;
+        }
+
+        h2 {
+            text-align: center;
+            color: #444;
+        }
+
+        table {
+            width: 90%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            background:black;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background: #242e25;
+            color:white;
+        }
+
+        tr:nth-child(even) {
+            /*background: #f9f9f9;*/
+            background: black;
+        }
+
+        button {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .pay-btn {
+            background: #4CAF50;
+            color: white;
+            margin: 20px auto;
+            display: block; /* Center the button */
+
+        }
+        */
+        /*.pay-all-btn {
+            background: #4CAF50;
+            color: white;
+            margin: 20px auto;
+            display: block; /* Center the button *
+        }*/
+        
+
+
+
+
+        .remove-btn {
+            background: #f44336;
+            color: white;
+        }
+
+        .empty-message {
+            text-align: center;
+            font-size: 18px;
+            color: #777;
+        }
+        
+        /* Basic Styling */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #000;
+            color: #fff;
+        }
+
+        /* Navbar */
+        .navbar {
+            background: #333;
+            color: white;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+
+        /* Menu Icon (☰) */
+        .menu-icon {
+            font-size: 28px;
+            cursor: pointer;
+            user-select: none;
+            padding: 5px 10px;
+            border: 1px solid white;
+            border-radius: 5px;
+        }
+
+        /* Dropdown Menu */
+        .menu {
+            display: none; /* Hidden by default */
+            position: absolute;
+            top: 60px;
+            left: 20px;
+            background: #444;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            padding: 10px 0;
+            z-index: 1000;
+        }
+
+        .menu a {
+            display: block;
+            padding: 10px 20px;
+            color: white;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+
+        .menu a:hover {
+            background: #555;
+        }
+
+        .show-menu {
+            display: block; /* Show when active */
+        }
+
+        /* Search Section */
+        .search-container {
+            text-align: center;
+            margin: 20px;
+        }
+
+        .search-container input {
+            padding: 8px;
+            margin: 5px;
+            width: 250px;
+            border-radius: 5px;
+            border: none;
+            text-align: center;
+        }
+
+        /* Book Section */
+        .listed-books {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .book-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .book-card {
+            background: #222;
+            padding: 10px;
+            margin: 10px;
+            width: 220px;
+            border-radius: 5px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .book-card:hover {
+            transform: scale(1.05);
+        }
+
+        .book-card img {
+            width: 150%;
+            height: 150px;
+            object-fit: contain;
+            border-radius: 5px;
+        }
+
+        .request-form input {
+            padding: 5px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+        }
+
+        .request-btn {
+            display: block;
+            width: 100%;
+            padding: 5px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            background: #f8a007;
+            color: white;
+        }
+
+        .no-books {
+            display: none;
+            color: red;
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar with Menu -->
+    <nav class="navbar">
+        <div class="menu-icon" onclick="toggleMenu()">☰</div>
+        <div class="logo">📚 Online Library</div>
+
+        <!-- Menu Links -->
+        <div class="menu" id="menu">
+           <!--<a href="profile.html">👤Profile</a>
+            <a href="book.html">📚Book</a>
+            <a href="dashboard.html">📊Dashboard</a>
+            <!--<a href="transaction.html">Transactions</a>--
+            <a href="issue_book.html">📖Issue Book Request</a>
+            <!--<a href="categories.html">Categories</a>--
+            <a href="index.html">🚪Logout</a>-->
+
+            <a href="{{ url_for('user_profile') }}">👤Profile</a>
+            <a href="{{ url_for('user_dashboard') }}">📊Dashboard</a>
+            <a href="{{ url_for('user_book_page') }}">📚Books</a>
+            <a href="{{ url_for('issue_book') }}">📖Issue Book</a>
+            <a href="{{ url_for('logout') }}">🚪Logout</a>
+    
+        </div>
+    </nav>
+
+    <h2>Borrowed Books</h2>
+
+    <table id="borrowTable">
+        <thead>
+            <tr>
+                <th>User Name</th>
+                <th>Book Name</th>
+                <th>Author Name</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Borrowed books will be dynamically inserted here -->
+        </tbody>
+    </table>
+    <!--<button id="payAllBtn" class="pay-all-btn" onclick="payAll()">payment</button>-->
+    <button class="pay-btn" onclick="makePayment(0)">Pay</button>
+
+    <!--<button id="payAllBtn" class="pay-all-btn" onclick="makePayment(${index})">Pay</button>-->
+
+    <script>
+
+function toggleMenu() {
+    const menu = document.getElementById('menu');
+    menu.classList.toggle('show-menu'); // Toggle visibility of the menu
+}
+
+        function openSidebar(event) {
+                event.stopPropagation();
+                document.getElementById("sidebar").style.width = "250px";
+            }
+    
+            function closeSidebar() {
+                document.getElementById("sidebar").style.width = "0";
+            }
+    
+    
+            function logout() {
+                window.location.href = "/";
+            }
+        document.addEventListener('DOMContentLoaded', function () {
+            const borrowData = JSON.parse(localStorage.getItem('borrowedBooks')) || [];
+            const borrowTable = document.getElementById('borrowTable').getElementsByTagName('tbody')[0];
+            const payAllBtn = document.getElementById('payAllBtn');
+
+            if (borrowData.length === 0) {
+                const emptyMessage = document.createElement('tr');
+                emptyMessage.innerHTML = '<td colspan="4" class="empty-message">No books borrowed yet.</td>';
+                borrowTable.appendChild(emptyMessage);
+                payAllBtn.style.display = 'none'; // Hide pay button if no books
+            } else {
+                borrowData.forEach((item, index) => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${item.userName}</td>
+                        <td>${item.bookName}</td>
+                        <td>${item.authorName}</td>
+                        <td>
+                            <button class="pay-btn" onclick="makePayment(${index})">Pay</button>
+                            <button class="remove-btn" onclick="removeBook(${index})">Remove</button>
+                        </td>
+                    `;
+                    borrowTable.appendChild(row);
+                });
+            }
+        });
+
+        function makePayment(index) {
+            alert('Proceeding to payment for book: ' + JSON.parse(localStorage.getItem('borrowedBooks'))[index].bookName);
+            // You can integrate actual payment flow here
+        }
+
+        function removeBook(index) {
+            const borrowData = JSON.parse(localStorage.getItem('borrowedBooks')) || [];
+            borrowData.splice(index, 1);
+            localStorage.setItem('borrowedBooks', JSON.stringify(borrowData));
+            location.reload();
+        }
+        // Redirect to Payment Page with Book ID
+function makePayment(index) {
+    const borrowData = JSON.parse(localStorage.getItem('borrowedBooks')) || [];
+    const bookId = index;  // Use index as a unique identifier (or use DB ID if available)
+    
+    // Redirect to the payment detail page
+    window.location.href = `/payment/${bookId}`;
+}
+// Function to handle payment for all books
+function payAll() {
+            const borrowData = JSON.parse(localStorage.getItem('borrowedBooks')) || [];
+            if (borrowData.length === 0) {
+                alert('No books available for payment.');
+                return;
+            }
+
+            // Redirect to payment page with book details
+            const bookIds = borrowData.map((_, index) => index).join(',');
+            window.location.href = `/payment?books=${bookIds}`;
+        }
+        /*function makePayment(index) {
+    // Redirect to the Flask route with the book ID
+          console.log('Redirecting to payment for index:', index); // Debug Output
+           window.location.href = `/payment/${index}`;
+           
+}*/
+function makePayment(index) {
+    console.log('Redirecting to payment for index:', index); // Debug log
+    const paymentUrl = `/payment/${index}`;
+    console.log('Redirect URL:', paymentUrl); // Confirm the URL
+    window.location.href = paymentUrl; // Redirect to Flask route
+}
+
+
+    </script>
+
+    </script>
+
+</body>
+
+</html>
+

@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard - Library System</title>
+    <!--<link rel="stylesheet" href="admin_dashboard.css">-->
+    <style>
+        /* Global Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Body Styling */
+body {
+    display: flex;
+    height: 100vh;
+    background: #000;
+    color: #fff;
+}
+
+/* Sidebar Styling */
+.sidebar {
+    width: 250px;
+    background: #111;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    left: -250px; /* Hidden initially */
+    top: 0;
+    bottom: 0;
+    transition: left 0.3s ease; /* Slide animation */
+    z-index: 1000; /* Ensure it's on top */
+}
+
+.sidebar.open {
+    left: 0; /* Show sidebar */
+}
+
+.sidebar h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 24px;
+    color: #fff;
+}
+
+.sidebar ul {
+    list-style: none;
+}
+
+.sidebar ul li {
+    margin: 20px 0;
+}
+
+.sidebar ul li a {
+    color: #bbb;
+    text-decoration: none;
+    font-size: 18px;
+    display: block;
+    padding: 10px;
+    border-radius: 8px;
+    transition: background 0.3s ease;
+}
+
+.sidebar ul li a:hover,
+.sidebar ul li a.active {
+    background: #222;
+    color: #fff;
+}
+
+/* Dropdown for Manage Books */
+.dropdown {
+            display: none;
+            flex-direction: column;
+            padding-left: 20px;
+        }
+
+        .dropdown a {
+            font-size: 16px;
+            padding: 5px 0;
+
+        }
+
+        .dropdown.show {
+            display: flex;
+        }
+
+/* Main Content */
+.main-content {
+    flex-grow: 1;
+    padding: 40px;
+    margin-left: 0; /* No offset when sidebar is hidden */
+    transition: margin-left 0.3s ease;
+}
+
+/* Adjust when sidebar is open */
+.main-content.open {
+    margin-left: 250px;
+}
+
+/* Header */
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 40px;
+    border-bottom: 2px solid #fff;
+    padding-bottom: 10px;
+}
+
+header h1 {
+    font-size: 32px;
+}
+
+/* Menu Button */
+#menu-btn {
+    background: #fff;
+    color: #000;
+    border: none;
+    padding: 10px 20px;
+    font-size: 18px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+/* Dashboard Stats */
+.stats-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+}
+
+.stat-box {
+    background: #222;
+    padding: 20px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+}
+
+.stat-box h3 {
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+
+.stat-box p {
+    font-size: 28px;
+    font-weight: bold;
+}
+
+    </style>
+    
+
+</head>
+
+<body>
+    <!-- oldSidebar--> 
+    <div class="sidebar" id="sidebar">
+        <h2>Admin Panel</h2>
+        <ul>
+            <li><a href="admin_profile.html">👤Admin Profile</a></li>
+            <li><a href="admin_dashboard.html" class="active">📊Dashboard</a></li>
+            <li id ="manageBooks">
+             <a href="#">Manage Books</a>
+                <div class="dropdown" id="dropdown">
+                    <a href="add_book.html">📚Add Book</a>
+                    <a href="view_book.html">📚View Book</a>
+                </div></li>
+            <li><a href="admin_issue_book.html">📖 Book Issue</a></li>
+            <li><a href="#">Manage Users</a></li>
+            <li><a href="#">Transaction Details</a></li>
+            <li><a href="index.html">🚪Logout</a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+
+    <div class="main-content" id="main-content">
+        <header>
+            <button id="menu-btn">☰</button>
+            <h1>Dashboard</h1>
+        </header>
+    
+
+        <div class="stats-container">
+            <div class="stat-box">
+                <h3>Total Books</h3>
+                <p id="totalBooks">12</p>
+            </div>
+            <div class="stat-box">
+                <h3>Available Books</h3>
+                <p id="availableBooks">12</p>
+            </div>
+            <div class="stat-box">
+                <h3>Borrowed Books</h3>
+                <p id="borrowedBooks">0</p>
+            </div>
+            <div class="stat-box">
+                <h3>Issued Books</h3>
+                <p id="issuedBooks">0</p>
+            </div>
+            <div class="stat-box">
+                <h3>Fine Books</h3>
+                <p id="fineBooks"></p>
+            </div>
+        </div>
+    </div>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+            const sidebar = document.getElementById('sidebar');
+            const menuBtn = document.getElementById('menu-btn');
+            const mainContent = document.getElementById('main-content');
+
+            //new
+            const manageBooks = document.getElementById('manageBooks');
+            const dropdown = document.getElementById('dropdown');
+
+
+            // Toggle Sidebar Open/Close
+            menuBtn.addEventListener('click', () => {
+                sidebar.classList.toggle('open');
+                mainContent.classList.toggle('open');
+            });
+            //new
+                        // Toggle Manage Books Dropdown
+
+              /* manageBooks.addEventListener('click', (e) => {
+                e.preventDefault();
+                dropdown.classList.toggle('show');
+            });*/
+
+            //3new
+            manageBooks.addEventListener('click', () => {
+        dropdown.classList.toggle('show'); // Show/Hide on Click
+    });
+
+            manageBooks.addEventListener('mouseover', () => {
+        dropdown.classList.add('show'); // Show on Hover
+    });
+
+ //2new
+           /* manageBooks.addEventListener('mouseover', () => {
+                dropdown.classList.add('show');
+            });
+
+            manageBooks.addEventListener('mouseout', () => {
+                dropdown.classList.remove('show');
+            });
+
+            dropdown.addEventListener('mouseover', () => {
+                dropdown.classList.add('show');
+            });
+
+            dropdown.addEventListener('mouseout', () => {
+                dropdown.classList.remove('show');
+            });*/
+
+dropdown.addEventListener('mouseover', () => {
+        dropdown.classList.add('show'); // Keep Open on Hover
+    });
+
+    manageBooks.addEventListener('mouseout', () => {
+        setTimeout(() => {
+            if (!dropdown.matches(':hover')) {
+                dropdown.classList.remove('show'); // Hide on Mouse Leave
+            }
+        }, 200);
+    });
+
+    dropdown.addEventListener('mouseout', () => {
+        setTimeout(() => {
+            if (!manageBooks.matches(':hover')) {
+                dropdown.classList.remove('show'); // Hide on Mouse Leave
+            }
+        }, 200);
+    });
+
+
+            // Close Sidebar When Clicking Outside
+            document.addEventListener('click', (e) => {
+                if (!sidebar.contains(e.target) && !menuBtn.contains(e.target)) {
+                    sidebar.classList.remove('open');
+                    mainContent.classList.remove('open');
+                }
+            });
+        });  
+        
+        
+    </script>
+
+</body>
+
+</html>
+<!--new <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Management System - Dashboard</title>
+    <style>
+        /* General Styling */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+        }
+
+        /* Sidebar Styling */
+        #sidebar {
+            width: 250px;
+            background: #2c3e50;
+            color: white;
+            height: 100vh;
+            overflow-y: auto;
+            transition: width 0.3s ease;
+        }
+
+        #sidebar.open {
+            width: 70px;
+        }
+
+        #sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        #sidebar ul li {
+            padding: 15px 20px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        #sidebar ul li:hover {
+            background: #34495e;
+        }
+
+        #sidebar ul li a {
+            color: white;
+            text-decoration: none;
+            display: block;
+        }
+
+        /* Dropdown Styling */
+        .dropdown {
+            display: none;
+            flex-direction: column;
+            padding-left: 20px;
+            transition: 0.3s ease;
+        }
+
+        .dropdown a {
+            padding: 5px 0;
+            font-size: 14px;
+        }
+
+        .dropdown.show {
+            display: flex;
+        }
+
+        /* Main Content */
+        #main-content {
+            flex-grow: 1;
+            padding: 20px;
+            transition: margin-left 0.3s ease;
+        }
+
+        /* Menu Button */
+        #menu-btn {
+            background: #2c3e50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Sidebar --
+    <div id="sidebar">
+        <button id="menu-btn">☰ Menu</button>
+        <ul>
+            <li><a href="dashboard.html">Dashboard</a></li>
+
+            <!-- Manage Books Section --
+            <li id="manageBooks">
+                <a href="#">Manage Books ▼</a>
+                <div class="dropdown" id="dropdown">
+                    <a href="add_book.html">Add Book</a>
+                    <a href="view_book.html">View Book</a>
+                </div>
+            </li>
+
+            <li><a href="manage_category.html">Manage Category</a></li>
+            <li><a href="issue_requests.html">Book Issue Requests</a></li>
+            <li><a href="manage_place.html">Manage Place</a></li>
+            <li><a href="manage_users.html">Manage Users</a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content --
+    <div id="main-content">
+        <h1>Welcome to the Admin Dashboard</h1>
+        <p>Manage your library system efficiently.</p>
+    </div>
+
+    <!-- JavaScript for Sidebar & Dropdown --
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const sidebar = document.getElementById('sidebar');
+            const menuBtn = document.getElementById('menu-btn');
+            const mainContent = document.getElementById('main-content');
+            const manageBooks = document.getElementById('manageBooks');
+            const dropdown = document.getElementById('dropdown');
+
+            // Toggle Sidebar (Click Menu Button)
+            menuBtn.addEventListener('click', () => {
+                sidebar.classList.toggle('open');
+                mainContent.classList.toggle('open');
+            });
+
+            // Manage Books: Show/Hide Dropdown (Hover + Click)
+            manageBooks.addEventListener('click', () => {
+                dropdown.classList.toggle('show'); // Toggle on Click
+            });
+
+            manageBooks.addEventListener('mouseover', () => {
+                dropdown.classList.add('show'); // Show on Hover
+            });
+
+            dropdown.addEventListener('mouseover', () => {
+                dropdown.classList.add('show'); // Keep Open on Hover
+            });
+
+            manageBooks.addEventListener('mouseout', () => {
+                setTimeout(() => {
+                    if (!dropdown.matches(':hover')) {
+                        dropdown.classList.remove('show'); // Hide on Mouse Leave
+                    }
+                }, 200);
+            });
+
+            dropdown.addEventListener('mouseout', () => {
+                setTimeout(() => {
+                    if (!manageBooks.matches(':hover')) {
+                        dropdown.classList.remove('show'); // Hide on Mouse Leave
+                    }
+                }, 200);
+            });
+
+            // Close Sidebar When Clicking Outside
+            document.addEventListener('click', (e) => {
+                if (!sidebar.contains(e.target) && !menuBtn.contains(e.target)) {
+                    sidebar.classList.remove('open');
+                    mainContent.classList.remove('open');
+                }
+            });
+        });
+    </script>
+
+</body>
+
+</html>-->
+

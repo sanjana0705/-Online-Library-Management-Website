@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account - Library Management</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #000;
+            color: #fff;
+            text-align: center;
+        }
+
+        /*.navbar {
+            background: #222;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }*/
+
+        .nav-links a {
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            margin-right: 20px;
+        }
+
+        .account-container {
+            width: 50%;
+            margin: 50px auto;
+            background: #111;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .account-option {
+            display: block;
+            width: 100%;
+            margin: 10px 0;
+            padding: 10px;
+            background: white;
+            color: black;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        .account-option:hover {
+            background: #ddd;
+        }
+        * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* ✅ Body *
+body {
+    font-family: Arial, sans-serif;
+    background-color: #000; /* Black background *
+    color: white;
+    margin: 0;
+    padding: 0;
+}
+
+/* ✅ Top Navbar */
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #333;
+    padding: 15px 20px;
+    position:left fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    color: white;
+}
+
+.navbar h1 {
+    font-size: 20px;
+}
+
+.menu-icon {
+    font-size: 24px;
+    cursor: pointer;
+}
+/* ✅ Menu Icon */
+/*.menu-icon {
+            font-size: 28px;
+            cursor: pointer;
+            user-select: none;
+            padding: 5px 10px;
+            border: 1px solid white;
+            border-radius: 5px;
+        }
+
+        /* ✅ Dropdown Menu *
+        .menu {
+            display: none; /* Hidden by default *
+            position: absolute;
+            top: 60px;
+            left: 20px;
+            background: #444;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            padding: 10px 0;
+            z-index: 1000;
+        }
+
+        .menu a {
+            display: block;
+            padding: 10px 20px;
+            color: white;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+
+        .menu a:hover {
+            background: #555;
+        }
+
+        .show-menu {
+            display: block; /* Show when active *
+        }
+
+
+/* ✅ Sidebar */
+.sidebar {
+    width: 250px; /* Ensure it has a proper width */
+    height: 100vh;
+    background: #222;
+    padding-top: 60px;
+    position: fixed;
+    left: 0;
+    top: 0;
+    overflow-y: auto; /* Ensure scrolling works */
+    transition: width 0.3s ease-in-out;
+    z-index: 999;
+
+}
+
+.sidebar a {
+    display: block;
+    padding: 15px;
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    transition: background 0.3s;
+}
+
+.sidebar a:hover {
+    background: #444;
+}*/
+
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+/* ✅ Search Bar */
+.search-bar {
+    /*display: flex;
+    justify-content: center;
+    padding: 15px;
+    gap: 10px;
+    background: #222;
+    position: fixed;
+    top: 60px; /* Positioned below navbar *
+    width: 100%;
+    z-index: 999;*/
+
+    position: fixed;
+    top: 60px;
+    left: 250px; /* Move it right to avoid overlapping sidebar */
+    width: calc(100% - 250px); /* Ensure it does not cover sidebar */
+    background:#222;
+    padding: 15px;
+    z-index: 998; 
+}
+
+.search-bar input {
+    width: 300px;
+    padding: 8px;
+    border: 2px solid #111;
+    border-radius: 5px;
+    background: white;
+    color: white;
+}
+            /* Search Section */
+            .search-container {
+            text-align: center;
+            margin: 20px;
+        }
+
+        .search-container input {
+            padding: 8px;
+            margin: 5px;
+            width: 250px;
+            border-radius: 5px;
+            border: none;
+            text-align: center;
+        }
+        account-container {
+            width: 50%;
+            margin: 50px auto;
+            background: #111;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        account-option {
+            display: block;
+            width: 100%;
+            margin: 10px 0;
+            padding: 10px;
+            background: white;
+            color: black;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        .account-option:hover {
+            background: #ddd;
+        }
+
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #000;
+            color: white;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #222;
+            border-radius: 12px;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+        }
+
+        h2 {
+            color: #f8a007;
+        }
+
+        .info {
+            margin: 20px 0;
+            text-align: left;
+        }
+
+        .info label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .info p {
+            background: #444;
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        .btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: #f8a007;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: background 0.3s;
+        }
+
+        .btn:hover {
+            background: #d88a06;
+        }
+
+
+
+    </style>
+    </script>
+    <script>/*
+        function goToProfile() {
+            window.location.href = "/profile";  // Update this link based on your Flask route
+        }
+
+        function changePassword() {
+            window.location.href = "/change_password"; // Update this link based on your Flask route
+        }
+
+        function logout() {
+            window.location.href = "/logout"; // Update this link based on your Flask route
+        }*/
+        function openSidebar(event) {
+            event.stopPropagation();
+            document.getElementById("sidebar").style.width = "250px";
+        }
+
+        function closeSidebar() {
+            document.getElementById("sidebar").style.width = "0";
+        }
+
+
+        function logout() {
+            window.location.href = "/";
+            document.addEventListener("click", function (event) {
+            let sidebar = document.getElementById("sidebar");
+            if (sidebar.style.width === "250px" && !sidebar.contains(event.target)) {
+                sidebar.style.width = "0";
+            }
+        });
+        }
+
+    </script>
+</head>
+<body>
+    <!--<nav class="navbar">
+        <div class="logo">📚 Library Account</div>
+        <div class="nav-links">
+            <a href="/">Home</a>
+        </div>
+    </nav>-->
+    <div class="navbar">
+        <h1>📚 Online Library </h1>
+        <span class="menu-icon" onclick="openSidebar(event)">☰</span>
+    </div>
+
+    <div id="sidebar" class="sidebar">
+        <span class="close-btn" onclick="closeSidebar()">✖</span>
+        <!--<a href="profile.html">👤Profile</a>
+        <a href="dashboard.html">📊 Dashboard</a>
+        <a href="book.html">📚 Books</a>
+        <a href="issue_book.html">📖 Issue/Return</a>
+        <a href="index.html" onclick="logout()">🚪 Logout</a>-->
+        <a href="{{ url_for('user_profile') }}">👤Profile</a>
+        <a href="{{ url_for('user_dashboard') }}">📊 Dashboard</a>
+        <a href="{{ url_for('user_book_page') }}">📚 Books</a>
+        <a href="{{ url_for('issue_book') }}">📖 Issue/Return</a>
+        <li id ="transaction">
+            <a href="#">Transaction</a>
+               <div class="dropdown" id="dropdown">
+                   <a href="{{ url_for('borrow_page') }}">borrow</a>
+                   <!--<a href="view_book.html">📚View Book</a>-->
+               </div></li>
+        <a href="{{ url_for('logout') }}">🚪 Logout</a>
+    </div>
+
+    <div class="account-container">
+        <h2>👤 My Profile</h2>
+        <div class="info">
+            <label>Full Name:</label>
+            <p>sanjana_yadav</p>
+        </div>
+
+        <div class="info">
+            <label>Username:</label>
+            <p>#sanjana07</p>
+        </div>
+
+        <div class="info">
+            <label>Phone Number:</label>
+            <p>8007179307</p>
+        </div>
+
+        
+    </div>
+        <!--<button class="account-option" onclick="goToProfile()">👤 Create/View Profile</button>
+        <button class="account-option" onclick="changePassword()">🔑 Change Password</button>
+        <button class="account-option" onclick="logout()">🚪 Logout</button>-->
+    </div>
+</body>
+</html>
+

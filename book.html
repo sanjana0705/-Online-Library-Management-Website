@@ -1,0 +1,622 @@
+
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Library - Books</title>
+       <style>
+            /* ✅ Reset Styles */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+    }
+    
+    /* ✅ Body */
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #000; /* Black background */
+        color: white;
+        margin: 0;
+        padding: 0;
+    }
+    
+    /* ✅ Top Navbar */
+    .navbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: #333;
+        padding: 15px 20px;
+        position: fixed;
+        width: 100%;
+        top: 0;
+        left: 0;
+        z-index: 1000;
+        color: white;
+    }
+    
+    .navbar h1 {
+        font-size: 20px;
+    }
+    
+    .menu-icon {
+        font-size: 24px;
+        cursor: pointer;
+    }
+    /* ✅ Menu Icon */
+    /*.menu-icon {
+                font-size: 28px;
+                cursor: pointer;
+                user-select: none;
+                padding: 5px 10px;
+                border: 1px solid white;
+                border-radius: 5px;
+            }
+    
+            /* ✅ Dropdown Menu *
+            .menu {
+                display: none; /* Hidden by default *
+                position: absolute;
+                top: 60px;
+                left: 20px;
+                background: #444;
+                border-radius: 10px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+                padding: 10px 0;
+                z-index: 1000;
+            }
+    
+            .menu a {
+                display: block;
+                padding: 10px 20px;
+                color: white;
+                text-decoration: none;
+                transition: background 0.3s;
+            }
+    
+            .menu a:hover {
+                background: #555;
+            }
+    
+            .show-menu {
+                display: block; /* Show when active *
+            }
+    
+    
+    /* ✅ Sidebar */
+    .sidebar {
+        width: 250px; /* Ensure it has a proper width */
+        height: 100vh;
+        background: #222;
+        padding-top: 60px;
+        position: fixed;
+        left: 0;
+        top: 0;
+        overflow-y: auto; /* Ensure scrolling works */
+        transition: width 0.3s ease-in-out;
+        z-index: 999;
+    
+    }
+    
+    .sidebar a {
+        display: block;
+        padding: 15px;
+        color: white;
+        text-decoration: none;
+        font-size: 18px;
+        transition: background 0.3s;
+    }
+    
+    .sidebar a:hover {
+        background: #444;
+    }*/
+    
+    .close-btn {
+        position: absolute;
+        top: 15px;
+        right: 20px;
+        font-size: 24px;
+        cursor: pointer;
+    }
+    
+    /* ✅ Search Bar */
+    .search-bar {
+        /*display: flex;
+        justify-content: center;
+        padding: 15px;
+        gap: 10px;
+        background: #222;
+        position: fixed;
+        top: 60px; /* Positioned below navbar *
+        width: 100%;
+        z-index: 999;*/
+    
+        position: fixed;
+        top: 60px;
+        left: 250px; /* Move it right to avoid overlapping sidebar */
+        width: calc(100% - 250px); /* Ensure it does not cover sidebar */
+        background:#222;
+        padding: 15px;
+        z-index: 998; 
+    }
+    
+    .search-bar input {
+        width: 300px;
+        padding: 8px;
+        border: 2px solid #111;
+        border-radius: 5px;
+        background:white;
+        color: black;
+    }
+                /* Search Section */
+                .search-container {
+                text-align: center;
+                margin: 20px;
+            }
+    
+            .search-container input {
+                padding: 8px;
+                margin: 5px;
+                width: 250px;
+                border-radius: 5px;
+                border: none;
+                text-align: center;
+            }
+    
+    
+    /* ✅ Book Listing */
+    .listed-books {
+        text-align: center;
+        padding: 120px 20px 20px; /* Extra padding for navbar & search bar */
+    }
+    
+    /* ✅ Book Grid */
+    .book-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 15px;
+        padding: 20px;
+    }
+    
+    /* ✅ Book Cards */
+    .book-card {
+        background-color: #111;
+        color: white;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(255, 255, 255, 0.1);
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        transition: transform 0.3s ease-in-out;
+    }
+    
+    .book-card:hover {
+        transform: scale(1.05);
+    }
+    
+    /* ✅ Book Image - Fully Cover the Box */
+    .book-card img {
+        width: 100%;
+        height: 220px; /* Increased size for better fit */
+        object-fit: contain; /* Ensures proper fit */
+        border-radius: 5px;
+        background-color: #000; /* Add a black background to fill space */
+        padding: 5px;
+    }
+    
+    .book-card img:hover {
+        transform: scale(1.1);
+    }
+    
+    /* ✅ Book Title */
+    .book-title {
+        font-size: 16px;
+        font-weight: bold;
+        color: #fff;
+        margin-top: 8px;
+    }
+    
+    /* ✅ Book Author */
+    .book-card p {
+        font-size: 14px;
+        color: #bbb; /* Light gray text */
+    }
+    
+    /* ✅ Borrow Button */
+    .borrow-btn {
+        background-color: orange;
+        border: none;
+        padding: 10px;
+        width: 100%;
+        border-radius: 5px;
+        color: white;
+        cursor: pointer;
+        font-size: 14px;
+        transition: background 0.3s;
+    }
+    
+    .borrow-btn:hover {
+        background-color: darkorange;
+    }
+    
+    /* ✅ Responsive Grid */
+    @media (max-width: 600px) {
+        .book-container {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+    
+    @media (max-width: 400px) {
+        .book-container {
+            grid-template-columns: repeat(1, 1fr);
+        }
+    }
+    /* ✅ Fix Sidebar Hover Issue */
+.sidebar a:hover {
+    background: #444; /* Fixed the comment typo */
+}
+
+/* ✅ Ensure Dropdown Works */
+.dropdown {
+    display: none; /* Hide by default */
+    background: #444;
+    padding: 5px;
+}
+
+#transaction:hover .dropdown {
+    display: block; /* Show on hover */
+}
+
+    #borrowModal {
+                display: none;
+                position: fixed;
+                top: 20%;
+                left: 30%;
+                background: white;
+                padding: 20px;
+                border: 1px solid #ccc;
+    
+                }   
+        </style>
+    
+        <script>
+    
+    /*function toggleMenu() {
+                const menu = document.getElementById("menu");
+                menu.classList.toggle("show-menu");
+            }*/
+            function openSidebar(event) {
+                event.stopPropagation();
+                document.getElementById("sidebar").style.width = "250px";
+            }
+    
+            function closeSidebar() {
+                document.getElementById("sidebar").style.width = "0";
+            }
+    
+    
+            function logout() {
+                window.location.href = "/";
+            }
+            const borrowPageUrl = "{{ url_for('borrow_page') }}";
+    
+            /*function borrowBook(bookId) {
+                window.location.href = "/borrow/" + bookId;
+            }*/
+            
+           /*
+           workold// Open Borrow Modal with dynamic book details
+    function openBorrowModal(button) {
+        console.log("Borrow button clicked!");
+    
+        // Get the parent book-card and extract book information
+        const bookCard = button.closest('.book-card');
+        if (!bookCard) {
+            console.error("Book card not found!");
+            return;
+        }
+    
+        const bookTitle = bookCard.getAttribute('data-title') || "Unknown Title";
+        const bookAuthor = bookCard.querySelector('p strong') ? bookCard.querySelector('p strong').nextSibling.textContent.trim() : "Unknown Author";
+    
+        // Set book name in the modal (ensure you have this input in your modal)
+        document.getElementById('bookName').value = bookTitle;
+        document.getElementById('bookAuthor').value = bookAuthor;
+    
+        // Display the modal
+        const modal = document.getElementById('borrowModal');
+        if (modal) {
+            modal.style.display = 'block';
+            console.log("Modal displayed with book:", bookTitle, "by", bookAuthor);
+        } else {
+            console.error("Modal not found!");
+        }
+    }
+    
+    // Close Borrow Modal
+    function closeModal() {
+        document.getElementById('borrowModal').style.display = 'none';
+        console.log("Modal closed.");
+    }*/
+    //new Function to show the borrow prompt
+        function showBorrowPrompt(bookName, authorName) {
+            document.getElementById('bookName').value = bookName;
+            document.getElementById('authorName').value = authorName;
+            document.getElementById('borrowModal').style.display = 'block';
+        }
+        // Ensure DOM content is fully loaded before adding listeners
+        document.addEventListener('DOMContentLoaded', function () {
+            // Close Modal
+            document.getElementById('closeModal').addEventListener('click', function () {
+                document.getElementById('borrowModal').style.display = 'none';
+             });
+
+    
+        // Close Modal
+        //document.getElementById('closeModal').onclick = function() {
+            document.getElementById('closeModal').addEventListener('click', function() {
+            document.getElementById('borrowModal').style.display = 'none';
+        });
+    
+        // Save Borrow Data and Redirect to Borrow Page
+        //document.getElementById('saveBorrow').onclick = function() {
+            document.getElementById('saveBorrow').addEventListener('click', function() {
+            const bookName = document.getElementById('bookName').value;
+            const authorName = document.getElementById('authorName').value;
+            const userName = document.getElementById('userName').value;
+    
+            if (!userName) {
+                alert('Please enter your name before borrowing.');
+                return;
+            }
+    
+            // Save the borrow data using localStorage (you can connect this to Flask backend via fetch API)
+            const borrowData = JSON.parse(localStorage.getItem('borrowedBooks')) || [];
+            borrowData.push({ bookName, authorName, userName });
+            localStorage.setItem('borrowedBooks', JSON.stringify(borrowData));
+    
+            // Redirect to Borrow Page
+            //window.location.href ="{{ url_for('borrow_page') }}";
+            window.location.href = borrowPageUrl;  
+        });
+    });
+    
+            function searchBooks() {
+                let titleInput = document.getElementById("searchTitle").value.toLowerCase();
+                let authorInput = document.getElementById("searchAuthor").value.toLowerCase();
+                let books = document.getElementsByClassName("book-card");
+    
+                let visibleBooks = 0;
+    
+    
+                for (let book of books) {
+                    let title = book.getAttribute("data-title")?.toLowerCase() || "";
+                    let author = book.getAttribute("data-author")?.toLowerCase() || "";
+    
+                    if (
+                        (titleInput === "" || title.includes(titleInput)) &&
+                        (authorInput === "" || author.includes(authorInput))
+                    ) {
+                        book.style.display = "flex";
+                        visibleBooks++;
+    
+                    } else {
+                        book.style.display = "none";
+                    }
+                }
+                let bookContainer = document.querySelector(".book-container");
+    
+    // ✅ Ensure books remain in grid after search
+         if (visibleBooks === 0) {
+        bookContainer.style.display = "none";
+    } else {
+        bookContainer.style.display = "grid";
+    }
+    }
+    
+    
+    
+            document.addEventListener("click", function (event) {
+                let sidebar = document.getElementById("sidebar");
+                if (sidebar.style.width === "250px" && !sidebar.contains(event.target)) {
+                    sidebar.style.width = "0";
+                }
+            });
+        
+
+
+        </script>
+    </head>
+    <body>
+        <div class="navbar">
+            <h1>📚 Online Library </h1>
+            <span class="menu-icon" onclick="openSidebar(event)">☰</span>
+        </div>
+    
+        <div id="sidebar" class="sidebar">
+            <span class="close-btn" onclick="closeSidebar()">✖</span>
+    
+            <!--<a href="profile.html">👤Profile</a>
+            <a href="dashboard.html">📊 Dashboard</a>
+            <a href="book.html">📚 Books</a>
+            <a href="issue_book.html">📖 Issue/Return</a>
+            <a href="index.html" onclick="logout()">🚪 Logout</a>-->
+    
+            <a href="{{ url_for('user_profile') }}">👤Profile</a>
+            <a href="{{ url_for('user_dashboard') }}">📊Dashboard</a>
+            <a href="{{ url_for('user_book_page') }}">📚Books</a>
+            <a href="{{ url_for('issue_book') }}">📖Issue Book</a>
+            <li id ="transaction">
+                 <a href="#">Transaction</a>
+                    <div class="dropdown" id="dropdown">
+                        <a href="{{ url_for('borrow_page') }}">borrow</a>
+                        <!--<a href="view_book.html">📚View Book</a>-->
+                    </div></li>
+            <a href="{{ url_for('logout') }}">🚪Logout</a>
+    
+        </div>
+    
+        <div class="search-bar">
+            <input type="text" id="searchTitle" placeholder="Search books Name..." onkeyup="searchBooks()">
+            <input type="text" id="searchAuthor" placeholder="Search by author name..." onkeyup="searchBooks()">
+        </div>
+    
+        <section class="listed-books">
+            <div class="book-container">
+                <div class="book-card" data-title="PHP and MySQL" data-author="Anuj Kumar">
+                    <!--<img src="1.jpg" alt="PHP and MySQL">-->
+                    <img src="{{ url_for('static', filename='images/book1.jpg') }}" alt="PHP and MySQL" width="150">
+                    <h3>PHP and MySQL</h3>
+                    <p><strong>Author:</strong> Anuj Kumar</p>
+                    <!--<button class="borrow-btn" onclick="openBorrowModal('PHP and MySQL', 'Anuj Kumar')">Borrow</button>-->
+                    <button class="borrow-btn" onclick="showBorrowPrompt('PHP and MySQL', 'Anuj Kumar')">Borrow</button>
+    
+    
+                </div>
+                <div class="book-card" data-title="c++">
+                    <!--<img src="2.jpg" alt="c++">-->
+                    <img src="{{ url_for('static', filename='images/book2.jpg') }}" alt="c++" width="150">
+                    <h3>c++ the complete refrence ,4th edition</h3>
+                    <p><strong>Author:</strong> Herbert schildt</p>
+                   <!--<button class="borrow-btn" onclick="borrowBook(2)">Borrow</button>-->
+                    <button class="borrow-btn" onclick="showBorrowPrompt('c++ the complete refrence ,4th edition', 'Herbert schildt')">Borrow</button>
+    
+                </div>
+                <div class="book-card" data-title="WordPress for beginners:2022">
+                    <!--<img src="3.jpg" alt="WordPress for beginners:2022">-->
+                    <img src="{{ url_for('static', filename='images/book3.jpg') }}" alt="WordPress for beginners:2022" width="150">
+                    <h3>WordPress for beginners:2022</h3>
+                    <p><strong>Author:</strong> Dr Andy Williams</p>
+                    <!--<button class="borrow-btn" onclick="borrowBook(3)">Borrow</button>-->
+                    <button class="borrow-btn" onclick="showBorrowPrompt('WordPress for beginners:2022', 'Dr Andy Williams')">Borrow</button>
+    
+                </div>
+                <div class="book-card" data-title="Murach's MySQL">
+                   <!-- <img src="4.jpg" alt="Murach's MySQL">-->
+                    <img src="{{ url_for('static', filename='images/book4.jpg') }}" alt="Murach's MySQL" width="150">
+                    <h3>Murach's MySQL</h3>
+                    <p><strong>Author:</strong>Anuj Kumar</p>
+                    <!--<button class="borrow-btn" onclick="borrowBook(4)">Borrow</button>-->
+                    <button class="borrow-btn" onclick="showBorrowPrompt('Murach s MySQl', 'Anuj Kumar')">Borrow</button>
+    
+                </div>
+                <div class="book-card" data-title="Rich Dad Poor Dad">
+                    <!--<img src="5.jpg" alt="Rich Dad Poor Dad">-->
+                    <img src="{{ url_for('static', filename='images/book5.jpg') }}" alt="Rich Dad Poor Dad" width="150">
+                    <h3>Rich Dad Poor Dad</h3>
+                    <p><strong>Author:</strong> Robert Kiyosak</p>
+                    <!--<button class="borrow-btn" onclick="borrowBook(5)">Borrow</button>-->
+                    <button class="borrow-btn" onclick="showBorrowPrompt('Rich Dad Poor Dad', 'Robert Kiyosak')">Borrow</button>
+    
+                </div>
+                <div class="book-card" data-title="Wordpress Mastery Guide">
+                    <!--<img src="6.jpg" alt="Wordpress Mastery Guide">-->
+                    <img src="{{ url_for('static', filename='images/book6.jpg') }}" alt="Wordpress Mastery Guide" width="150">
+                    <h3>Wordpress Mastery Guide</h3>
+                    <p><strong>Author:</strong>Kyle Hill</p>
+                    <!--<button class="borrow-btn" onclick="borrowBook(6)">Borrow</button>-->
+                    <button class="borrow-btn" onclick="showBorrowPrompt('Wordpress Mastery Guide', 'Kyle Hill')">Borrow</button>
+    
+                </div>
+                <div class="book-card" data-title="ASP.NET Core 5 for beginners">
+                    <!--<img src="7.jpg" alt="ASP.NET Core 5 for beginners">-->
+                    <img src="{{ url_for('static', filename='images/book7.jpg') }}" alt="ASP.NET Core 5 for beginners" width="150">
+                    <h3>ASP.NET Core 5 for beginners</h3>
+                    <p><strong>Author:</strong>Kyle Hill</p>
+                    <!--<button class="borrow-btn" onclick="borrowBook(7)">Borrow</button>-->
+                    <button class="borrow-btn" onclick="showBorrowPrompt('ASP.NET Core 5 for beginners', 'Kyle Hill')">Borrow</button>
+    
+                </div>
+                <div class="book-card" data-title="Python Packages">
+                    <!--<img src="8.jpg" alt="Python Packages">-->
+                    <img src="{{ url_for('static', filename='images/book8.jpg') }}" alt="Python Packages" width="150">
+                    <h3>Python Packages</h3>
+                    <p><strong>Author:</strong>Tiffany Timbers</p>
+                    <!--<button class="borrow-btn" onclick="borrowBook(8)">Borrow</button>-->
+                    <button class="borrow-btn" onclick="showBorrowPrompt('Python Packages', 'Tiffany Timbers')">Borrow</button>
+
+                </div>
+                <!--<div class="book-card" data-title="WordPress Guide">
+                    <img src="9.jpg" alt="WordPress Guide">
+                    <h3>WordPress Guide</h3>
+                    <p><strong>Author:</strong> Andy Williams</p>
+                    <button class="borrow-btn" onclick="borrowBook(9)">Borrow</button>
+                    </div>-->
+                <div class="book-card" data-title="Physics Redefined">
+                    <!--<img src="10.jpg" alt="Physics Redefined">-->
+                    <img src="{{ url_for('static', filename='images/book10.jpg') }}" alt="Physics Redefined" width="150">
+                    <h3>Physics Redefined</h3>
+                    <p><strong>Author:</strong>HC Verma</p>
+                    <!--<button class="borrow-btn" onclick="borrowBook(10)">Borrow</button>-->
+                    <button class="borrow-btn" onclick="showBorrowPrompt('Physics Redefined', 'HC Verma')">Borrow</button>
+
+                </div>
+                <div class="book-card" data-title="python all-in-one for dummies">
+                    <!--<img src="11.jpg" alt="python all-in-one for dummies">-->
+                    <img src="{{ url_for('static', filename='images/book11.jpg') }}" alt="python all-in-one for dummies" width="150">
+                    <h3>python all-in-one for dummies</h3>
+                    <p><strong>Author:</strong>john Shovic</p>
+                    <!--<button class="borrow-btn" onclick="borrowBook(11)">Borrow</button>-->
+                    <button class="borrow-btn" onclick="showBorrowPrompt('python all-in-one for dummies', 'john Shovic')">Borrow</button>
+
+                </div>
+                <div class="book-card" data-title="The Girl Who Drank the Moon">
+                    <!--<img src="12.jpg" alt="The Girl Who Drank the Moon">-->
+                    <img src="{{ url_for('static', filename='images/book12.jpg') }}" alt="The Girl Who Drank the Moon" width="150">
+                    <h3>The Girl Who Drank the Moon</h3>
+                    <p><strong>Author:</strong>Kelly Barnhill</p>
+                    <!--<button class="borrow-btn" onclick="borrowBook(12)">Borrow</button>-->
+                    <button class="borrow-btn" onclick="showBorrowPrompt('The Girl Who Drank the Moon', 'Kelly Barnhill')">Borrow</button>
+
+                </div>
+    
+                <!-- Add more books up to 12 -->
+            </div>
+        </section>
+        <!-- Borrow Modal -->
+        <!--<div id="borrowModal style="display: none; position: fixed; top: 20%; left: 30%; background: white; padding: 20px; border: 1px solid #ccc; z-index: 1001;">
+            <h3>Borrow Books</h3>
+            <form id="borrowForm" method="POST" action="/book">
+                <label>Username:</label>
+                <input type="text" id="userName" name="user_name" required><br><br>
+    
+                <label>Book Name:</label>
+                <input type="text" id="bookName" name="book_name" required readonly><br><br>
+    
+                <button type="submit">Save</button>
+                <button type="button" onclick="closeModal()">Close</button>
+            </form>
+        </div>--
+        <div id="borrowModal" style="display: none; position: fixed; top: 20%; left: 30%; background: white; padding: 20px; border: 1px solid #ccc; z-index: 1001;">
+            <h2>Borrow Book</h2>
+            <label>Book Title:</label>
+            <input type="text" id="bookName" readonly>
+            <label>Author:</label>
+            <input type="text" id="bookAuthor" readonly>
+            <button type="submit">Save</button>
+            <button onclick="closeModal()">Close</button>
+        </div>-->
+            <!-- Borrow Book Prompt -->
+    <div id="borrowModal" style="display: none; position: fixed; top: 20%; left: 30%; width: 40%; background: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 0 15px rgba(0,0,0,0.3); z-index: 9999;">
+        <h2 style="text-align: center; color: black;">Borrow Book</h2>
+    
+        <label for="bookName">Book Name:</label>
+        <input type="text" id="bookName" readonly style="margin: 10px; padding: 8px; width: 90%; border: 1px solid #ccc; border-radius: 8px;">
+    
+        <label for="authorName">Author Name:</label>
+        <input type="text" id="authorName" readonly style="margin: 10px; padding: 8px; width: 90%; border: 1px solid #ccc; border-radius: 8px;">
+    
+        <label for="userName">Your Name:</label>
+        <input type="text" id="userName" placeholder="Enter your name" style="margin: 10px; padding: 8px; width: 90%; border: 1px solid #ccc; border-radius: 8px;">
+    
+        <button id="saveBorrow" style="margin: 10px; padding: 8px 16px; background: #4CAF50; color: white; border: none; border-radius: 8px; cursor: pointer;">Borrow</button>
+        <button id="closeModal" style="margin: 10px; padding: 8px 16px; background: #f44336; color: white; border: none; border-radius: 8px; cursor: pointer;">Close</button>
+    
+        </div>
+        
+    </body>
+    </html>

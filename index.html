@@ -1,0 +1,324 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Library Management System</title>
+
+    <!--<link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">-->
+   <!--<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">-->
+   <!--<link rel="stylesheet" href="style.css">-->
+   <style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* Header */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: black;
+    color: white;
+    padding: 15px 50px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    height: 50px;
+    margin-right: 15px;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+}
+
+nav ul li {
+    margin-left: 20px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+nav ul li a:hover {
+    text-decoration: underline;
+}
+
+/* Hero Section */
+.hero {
+    /*background:"{{ url_for('static', filename='images/library.jpg') }}"*/
+    /*background: url('library.jpg') no-repeat center center/cover;*/
+    background: url("{{ url_for('static', filename='images/library.jpg') }}") no-repeat center center/cover;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+}
+
+.hero-content {
+    background: rgba(0, 0, 0, 0.6);
+    padding: 20px;
+    border-radius: 10px;
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    width: 300px;
+    position: relative;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform: translate(-50%, -50%);
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+/* Form Styles */
+#formContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.form-box {
+    display: none; /* Keep hidden until needed */
+    background: #f4f4f4;
+    padding: 20px;
+    border-radius: 5px;
+    width: 300px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    margin: 10px;
+}
+
+input, button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button {
+    background: black;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+}
+
+button:hover {
+    background: #555;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    nav ul {
+        flex-direction: column;
+        margin-top: 10px;
+    }
+
+    nav ul li {
+        margin: 5px 0;
+    }
+
+    .hero {
+        height: 50vh;
+    }
+}
+
+.register-link {
+    display: block;
+    text-align: center;
+    margin-top: 10px;
+    text-decoration: none;
+    color:black; /* Match with admin section color */
+}
+
+.register-link:hover {
+    text-decoration: underline;
+}
+
+
+
+   </style>
+
+   <script>
+    document.addEventListener("DOMContentLoaded", function () {
+    // Get modal elements
+    let loginModal = document.getElementById("loginModal");
+    let signupModal = document.getElementById("signupModal");
+    let adminLoginModal = document.getElementById("adminLoginModal");
+
+    // Get button elements
+    let loginBtn = document.getElementById("loginBtn");
+    let signupBtn = document.getElementById("signupBtn");
+    let adminLoginBtn = document.getElementById("adminLoginBtn");
+
+    // Get close buttons
+    let closeButtons = document.getElementsByClassName("close");
+
+    // Show modals when buttons are clicked
+    loginBtn.onclick = function () {
+        loginModal.style.display = "block";
+    };
+    signupBtn.onclick = function () {
+        signupModal.style.display = "block";
+    };
+    adminLoginBtn.onclick = function () {
+        adminLoginModal.style.display = "block";
+    };
+
+    // Close modals when 'x' is clicked
+    for (let btn of closeButtons) {
+        btn.onclick = function () {
+            loginModal.style.display = "none";
+            signupModal.style.display = "none";
+            adminLoginModal.style.display = "none";
+        };
+    }
+
+    // Close modals when clicking outside the modal
+    window.onclick = function (event) {
+        if (event.target == loginModal) loginModal.style.display = "none";
+        if (event.target == signupModal) signupModal.style.display = "none";
+        if (event.target == adminLoginModal) adminLoginModal.style.display = "none";
+    };
+});
+
+
+
+   </script>
+
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <header>
+        <div class="logo">
+            <!--<img src="logo.png" alt="Library Logo">
+            <img src="logo.png'" alt="Library Logo">-->
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Library Logo" width="150">
+            <h1>ONLINE LIBRARY MANAGEMENT SYSTEM</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#" id="loginBtn">LOGIN</a></li>
+                <li><a href="#" id="signupBtn">SIGN-UP</a></li>
+                <li><a href="#" id="adminLoginBtn">ADMIN</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h2>Welcome to the Library</h2>
+        </div>
+    </section>
+
+    <!-- Login Popup Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Login</h2>
+            <form action="http://127.0.0.1:5000/login" method="post">
+                <input type="text" name="username" placeholder="Username" required>
+                <input type="password" name="password" placeholder="Password" required>
+                <button type="submit">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Sign-up Popup Modal -->
+    <div id="signupModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Sign Up</h2>
+            <form action="http://127.0.0.1:5000/signup" method="post">
+                <input type="text" name="fullname" placeholder="Full Name" required>
+                <input type="text" name="mobile" placeholder="Mobile No" required>
+                <input type="email" name="email" placeholder="Email" required>
+                <input type="text" name="username" placeholder="Username" required>
+                <input type="password" name="password" placeholder="Password" required>
+                <button type="submit">Sign Up</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Admin Login Popup Modal -->
+    <div id="adminLoginModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Admin Login</h2>
+            <form action="http://127.0.0.1:5000/admin_login" method="post">
+                <input type="text" name="username" placeholder="Username" required>
+                <input type="password" name="password" placeholder="Password" required>
+                <button type="submit">Login</button>
+                <!--<a href="admin_register.html" class="register-link">Register Here</a>-->
+                <a href="{{ url_for('admin_register') }}">Admin Register</a>
+
+              <!--<a href="#" class="forgot-password">Forget Password?</a>-->
+
+            </form>
+        </div>
+    </div>
+
+
+    <!--<script src="script.js"></script>-->
+   <!--<script src="{{ url_for('static', filename='js/script.js') }}"></script>-->
+
+
+</body>
+</html>
+
+
